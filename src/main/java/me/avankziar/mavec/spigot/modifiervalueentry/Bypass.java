@@ -8,7 +8,7 @@ public class Bypass
 {
 	public enum Permission
 	{
-		//Here Condition and BypassPermission.
+		//Here Condition and BypassPermission. 
 		OTHERPLAYER;
 		
 		public String getValueLable()
