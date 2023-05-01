@@ -1,0 +1,9 @@
+name: ModifierAndValueEntryController
+main: main.java.me.avankziar.mavec.spigot.MAVEC
+version: 1
+author: Avankziar
+api-version: 1.17
+description: A plugin to control and manage all nummeral modification and also boolean/number/text valueentry.
+depend: [InterfaceHub]
+website: 
+prefix: MAVEC
