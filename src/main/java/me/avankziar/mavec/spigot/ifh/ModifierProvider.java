@@ -14,6 +14,7 @@ import main.java.me.avankziar.ifh.general.modifier.ModificationType;
 import main.java.me.avankziar.ifh.general.modifier.ModifierType;
 import main.java.me.avankziar.mavec.spigot.MAVEC;
 import main.java.me.avankziar.mavec.spigot.database.MysqlHandler;
+import main.java.me.avankziar.mavec.spigot.database.MysqlHandler.Type;
 import main.java.me.avankziar.mavec.spigot.objects.Modification;
 import main.java.me.avankziar.mavec.spigot.objects.Modifier;
 import main.java.me.avankziar.mavec.spigot.objects.ModifierBaseValue;
@@ -502,10 +503,67 @@ public class ModifierProvider implements main.java.me.avankziar.ifh.general.modi
 			String server, String world,
 			Long duration)
 	{
-		Modifier modi = new Modifier(0, uuid, modificationName, modifierType,
-				value, internReason, displayReason, server, world,
-				duration != null ? (duration.longValue() > 0 ? duration.longValue()+System.currentTimeMillis() : -1) : -1);
-		plugin.getMysqlHandler().create(MysqlHandler.Type.MODIFIER, modi);
+		Modifier modi = null;
+		if(hasModifier(uuid, modificationName, internReason, server, world))
+		{
+			if(server != null && world == null)
+			{
+				modi = (Modifier) plugin.getMysqlHandler().getData(MysqlHandler.Type.MODIFIER,
+						"`player_uuid` = ? AND `modification_name` = ? AND `intern_reason` = ? AND `server` = ?", 
+						uuid.toString(), modificationName, internReason, server);
+			} else if(server != null && world != null)
+			{
+				modi = (Modifier) plugin.getMysqlHandler().getData(MysqlHandler.Type.MODIFIER,
+						"`player_uuid` = ? AND `modification_name` = ? AND `intern_reason` = ? AND `server` = ? AND `world` = ?",
+						uuid.toString(), modificationName, internReason, server, world);
+			} else
+			{
+				modi = (Modifier) plugin.getMysqlHandler().getData(MysqlHandler.Type.MODIFIER,
+						"`player_uuid` = ? AND `modification_name` = ? AND `intern_reason` = ?",
+						uuid.toString(), modificationName, internReason);
+			}
+			modi.setDisplayReason(displayReason);
+			if(duration < 0 && modi.getDuration() > 0)
+			{
+				modi.setDuration(-1);
+			} else if(duration > 0 && modi.getDuration() > 0)
+			{
+				long dur = modi.getDuration() - System.currentTimeMillis();
+				if(dur > 0)
+				{
+					dur = dur + duration;
+				} else
+				{
+					dur = duration;
+				}
+				modi.setDuration(dur+System.currentTimeMillis());
+			} else
+			{
+				modi.setDuration(duration+System.currentTimeMillis());
+			}
+			if(server != null && world == null)
+			{
+				plugin.getMysqlHandler().updateData(Type.MODIFIER, modi,
+						"`player_uuid` = ? AND `modification_name` = ? AND `intern_reason` = ? AND `server` = ?", 
+						uuid.toString(), modificationName, internReason, server);
+			} else if(server != null && world != null)
+			{
+				plugin.getMysqlHandler().updateData(Type.MODIFIER, modi,
+						"`player_uuid` = ? AND `modification_name` = ? AND `intern_reason` = ? AND `server` = ? AND `world` = ?",
+						uuid.toString(), modificationName, internReason, server, world);
+			} else
+			{
+				plugin.getMysqlHandler().updateData(Type.MODIFIER, modi,
+						"`player_uuid` = ? AND `modification_name` = ? AND `intern_reason` = ?",
+						uuid.toString(), modificationName, internReason);
+			}
+		} else
+		{
+			modi = new Modifier(0, uuid, modificationName, modifierType,
+					value, internReason, displayReason, server, world,
+					duration != null ? (duration.longValue() > 0 ? duration.longValue()+System.currentTimeMillis() : -1) : -1);
+			plugin.getMysqlHandler().create(MysqlHandler.Type.MODIFIER, modi);
+		}
 		update(uuid);
 	}
 	

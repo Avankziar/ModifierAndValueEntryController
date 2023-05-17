@@ -33,7 +33,7 @@ public class YamlManager
 		initConfig();
 		initCommands();
 		initLanguage();
-		initConditionBonusMalusLanguage();
+		initModifierValueEntryLanguage();
 	}
 	
 	public ISO639_2B getLanguageType()
@@ -66,7 +66,7 @@ public class YamlManager
 		return languageKeys;
 	}
 	
-	public LinkedHashMap<String, Language> getConditionBonusMalusLanguageKey()
+	public LinkedHashMap<String, Language> getModifierValueEntryLanguageKey()
 	{
 		return cbmlanguageKeys;
 	}
@@ -189,7 +189,7 @@ public class YamlManager
 				"&eEin Zwischenbefehl.",
 				"&eA intermediate command.");
 		perm = "mavec.cmd.modifier";
-		argumentInput(path+"_add", "add", perm,
+		argumentInput(path+"_modifier_add", "add", perm,
 				"/mavec modifier add <modification> <player> <global/server:servername/world:servername:worldname> <value> <ADDITION/MULTIPLICATION> <0/dd-HH:mm> <internreason> <reason...>", "/mavec modifier add ", false,
 				"&c/mavec modifier add <Modifikation> <Spieler> <global/server:servername/world:servername:weltname> <Wert> <ADDITION/MULTIPLICATION> <0/dd-HH:mm> <interner Grung> <Grund...> &f| Fügt dem angegeben Spieler einen Modifikator hinzu.",
 				"&c/mavec modifier add <modification> <player> <global/server:servername/world:servername:worldname> <value> <ADDITION/MULTIPLICATION> <0/dd-HH:mm> <internreason> <reason...> &f| Adds a modifier to the specified player.",
@@ -197,7 +197,7 @@ public class YamlManager
 				"&bCommandright for &f/mavec modifier add",
 				"&eFügt dem angegeben Spieler einen Modifikator hinzu.",
 				"&eAdds a modifier to the specified player.");
-		argumentInput(path+"_list", "list", perm,
+		argumentInput(path+"_modifier_list", "list", perm,
 				"/mavec modifier list [page] [playername] [global/server/world]", "/mavec modifier list ", false,
 				"&c/mavec modifier list [Seite] [Spielername] [global/server/world] &f| Listet alle aktiven Modificatoren des Spielers mit Hovererklärung auf.",
 				"&c/mavec modifier list [page] [playername] [global/server/world] &f| Lists all active modifiers of the player with hoverexplanation.",
@@ -205,7 +205,7 @@ public class YamlManager
 				"&bCommandright for &f/mavec modifier list",
 				"&eListet alle aktiven Modifikatoren des Spielers mit Hovererklärung auf.",
 				"&eLists all active modifiers of the player with hoverexplanation.");
-		argumentInput(path+"_registered", "registered", perm,
+		argumentInput(path+"_modifier_registered", "registered", perm,
 				"/mavec modifier registered [page]", "/mavec modifier registered ", false,
 				"&c/mavec modifier registered [Seite] &f| Listet alle Pluginbasierende registrierte Modifikationen auf.",
 				"&c/mavec modifier registered [page] &f| Lists all plugin based registered modifications.",
@@ -213,7 +213,7 @@ public class YamlManager
 				"&bCommandright for &f/mavec registered",
 				"&eListet alle Pluginbasierende registrierte Modifikationen auf.",
 				"&eLists all plugin based registered modifications.");
-		argumentInput(path+"_remove", "remove", perm,
+		argumentInput(path+"_modifier_remove", "remove", perm,
 				"/mavec modifier remove <modification> <player> <reason...>", "/mavec modifier remove ", false,
 				"&c/mavec modifier remove <Modifikation> <Spieler> <Grund...> &f| Entfernt dem angegeben Spieler einen Modifikator.",
 				"&c/mavec modifier remove <modification> <player> <reason...> &f| Remove a modifier to the specified player.",
@@ -221,7 +221,7 @@ public class YamlManager
 				"&bCommandright for &f/mavec modifier remove",
 				"&eEntfernt dem angegeben Spieler einen Modifikator.",
 				"&eRemove a modifier to the specified player.");
-		perm = "ccs.cmd";
+		perm = "mavec.cmd";
 		argumentInput(path+"_valueentry", "valueentry", perm,
 				"/mavec valueentry", "/mavec valueentry ", false,
 				"&c/mavec valueentry &f| Zwischenbefehl",
@@ -230,37 +230,37 @@ public class YamlManager
 				"&bCommandright for &f/mavec valueentry",
 				"&eEin Zwischenbefehl.",
 				"&eA intermediate command.");
-		perm = "ccs.cmd.valueentry";		
-		argumentInput(path+"_add", "add", perm,
-				"/ccs valueentry add <valueentry> <player> <global/server:servername/world:servername:worldname> <value> <0/dd-HH:mm> <internreason> <reason...>", "/ccs valueentry add ", false,
-				"&c/ccs valueentry add <Valueentry> <Spieler> <global/server:servername/world:servername:weltname> <Wert> <0/dd-HH:mm> <interner Grung> <Grund...> &f| Fügt dem angegeben Spieler eine Condition hinzu.",
-				"&c/ccs valueentry add <valueentry> <player> <global/server:servername/world:servername:worldname> <value> <0/dd-HH:mm> <internreason> <reason...> &f| Adds a condition to the specified player.",
-				"&bBefehlsrecht für &f/ccs valueentry add",
-				"&bCommandright for &f/ccs valueentry add",
-				"&eFügt dem angegeben Spieler eine Condition hinzu.",
-				"&eAdds a condition to the specified player.");
-		argumentInput(path+"_list", "list", perm,
-				"/ccs valueentry list [page] [playername] [global/server/world]", "/ccs valueentry list ", false,
-				"&c/ccs valueentry list [Seite] [Spielername] [global/server/world] &f| Listet alle aktive Condition des Spielers mit Hovererklärung auf.",
-				"&c/ccs valueentry list [page] [playername] [global/server/world] &f| Lists all active conditions of the player with hoverexplanation.",
-				"&bBefehlsrecht für &f/ccs valueentry list",
-				"&bCommandright for &f/ccs valueentry list",
-				"&eListet alle aktive Condition des Spielers mit Hovererklärung auf.",
-				"&eLists all active condition of the player with hoverexplanation.");
-		argumentInput(path+"_registered", "registered", perm,
-				"/ccs valueentry registered [page]", "/ccs valueentry registered ", false,
-				"&c/ccs valueentry registered [Seite] &f| Listet alle Pluginbasierende registrierte Condition auf.",
-				"&c/ccs valueentry registered [page] &f| Lists all plugin based registered condition.",
-				"&bBefehlsrecht für &f/ccs valueentry registered",
-				"&bCommandright for &f/ccs valueentry registered",
+		perm = "mavec.cmd.valueentry";		
+		argumentInput(path+"_valueentry_add", "add", perm,
+				"/mavec valueentry add <valueentry> <player> <global/server:servername/world:servername:worldname> <value> <0/dd-HH:mm> <internreason> <reason...>", "/mavec valueentry add ", false,
+				"&c/mavec valueentry add <Valueentry> <Spieler> <global/server:servername/world:servername:weltname> <Wert> <0/dd-HH:mm> <interner Grung> <Grund...> &f| Fügt dem angegeben Spieler eine ValueEntry hinzu.",
+				"&c/mavec valueentry add <valueentry> <player> <global/server:servername/world:servername:worldname> <value> <0/dd-HH:mm> <internreason> <reason...> &f| Adds a valueentry to the specified player.",
+				"&bBefehlsrecht für &f/mavec valueentry add",
+				"&bCommandright for &f/mavec valueentry add",
+				"&eFügt dem angegeben Spieler eine ValueEntry hinzu.",
+				"&eAdds a valueentry to the specified player.");
+		argumentInput(path+"_valueentry_list", "list", perm,
+				"/mavec valueentry list [page] [playername] [global/server/world]", "/mavec valueentry list ", false,
+				"&c/mavec valueentry list [Seite] [Spielername] [global/server/world] &f| Listet alle aktive ValueEntry des Spielers mit Hovererklärung auf.",
+				"&c/mavec valueentry list [page] [playername] [global/server/world] &f| Lists all active valueentrx of the player with hoverexplanation.",
+				"&bBefehlsrecht für &f/mavec valueentry list",
+				"&bCommandright for &f/mavec valueentry list",
+				"&eListet alle aktive ValueEntry des Spielers mit Hovererklärung auf.",
+				"&eLists all active valueentry of the player with hoverexplanation.");
+		argumentInput(path+"_valueentry_registered", "registered", perm,
+				"/mavec valueentry registered [page]", "/mavec valueentry registered ", false,
+				"&c/mavec valueentry registered [Seite] &f| Listet alle Pluginbasierende registrierte ValueEntry auf.",
+				"&c/mavec valueentry registered [page] &f| Lists all plugin based registered valueentry.",
+				"&bBefehlsrecht für &f/mavec valueentry registered",
+				"&bCommandright for &f/mavec valueentry registered",
 				"&eListet alle Pluginbasierende registrierte Condition auf.",
 				"&eLists all plugin based registered condition.");
-		argumentInput(path+"_remove", "remove", perm,
-				"/ccs valueentry remove <valueentry> <player> <reason...>", "/ccs valueentry remove ", false,
-				"&c/ccs valueentry remove <Valueentry> <Spieler> <Grund...> &f| Entfernt dem angegeben Spieler eine Condition.",
-				"&c/ccs valueentry remove <valueentry> <player> <reason...> &f| Remove a condition to the specified player.",
-				"&bBefehlsrecht für &f/ccs remove",
-				"&bCommandright for &f/ccs remove",
+		argumentInput(path+"_valueentry_remove", "remove", perm,
+				"/mavec valueentry remove <valueentry> <player> <reason...>", "/mavec valueentry remove ", false,
+				"&c/mavec valueentry remove <Valueentry> <Spieler> <Grund...> &f| Entfernt dem angegeben Spieler eine ValueEntry.",
+				"&c/mavec valueentry remove <valueentry> <player> <reason...> &f| Remove a valueentry to the specified player.",
+				"&bBefehlsrecht für &f/mavec remove",
+				"&bCommandright for &f/mavec remove",
 				"&eEntfernt dem angegeben Spieler eine Condition.",
 				"&eRemove a condition to the specified player.");
 	}
@@ -277,7 +277,7 @@ public class YamlManager
 	}
 	
 	private void commandsInput(String path, String name, String basePermission, 
-			String suggestion, String commandString, boolean putUpCmdPermToBonusMalusSystem,
+			String suggestion, String commandString, boolean putUpCmdPermToValueEntrySystem,
 			String helpInfoGerman, String helpInfoEnglish,
 			String dnGerman, String dnEnglish,
 			String exGerman, String exEnglish)
@@ -291,9 +291,6 @@ public class YamlManager
 		commandsKeys.put(path+".Suggestion"
 				, new Language(new ISO639_2B[] {ISO639_2B.GER}, new Object[] {
 				suggestion}));
-		commandsKeys.put(path+".PutUpCommandPermToBonusMalusSystem"
-				, new Language(new ISO639_2B[] {ISO639_2B.GER}, new Object[] {
-				putUpCmdPermToBonusMalusSystem}));
 		commandsKeys.put(path+".CommandString"
 				, new Language(new ISO639_2B[] {ISO639_2B.GER}, new Object[] {
 				commandString}));
@@ -301,18 +298,21 @@ public class YamlManager
 				, new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 				helpInfoGerman,
 				helpInfoEnglish}));
-		commandsKeys.put(path+".Displayname"
+		commandsKeys.put(path+".ValueEntry.PutUpCommandPerm"
+				, new Language(new ISO639_2B[] {ISO639_2B.GER}, new Object[] {
+				putUpCmdPermToValueEntrySystem}));
+		commandsKeys.put(path+".ValueEntry.Displayname"
 				, new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 				dnGerman,
 				dnEnglish}));
-		commandsKeys.put(path+".Explanation"
+		commandsKeys.put(path+".ValueEntry.Explanation"
 				, new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 				exGerman,
 				exEnglish}));
 	}
 	
 	private void argumentInput(String path, String argument, String basePermission, 
-			String suggestion, String commandString, boolean putUpCmdPermToBonusMalusSystem,
+			String suggestion, String commandString, boolean putUpCmdPermToValueEntrySystem,
 			String helpInfoGerman, String helpInfoEnglish,
 			String dnGerman, String dnEnglish,
 			String exGerman, String exEnglish)
@@ -326,9 +326,6 @@ public class YamlManager
 		commandsKeys.put(path+".Suggestion"
 				, new Language(new ISO639_2B[] {ISO639_2B.GER}, new Object[] {
 				suggestion}));
-		commandsKeys.put(path+".PutUpCommandPermToBonusMalusSystem"
-				, new Language(new ISO639_2B[] {ISO639_2B.GER}, new Object[] {
-				putUpCmdPermToBonusMalusSystem}));
 		commandsKeys.put(path+".CommandString"
 				, new Language(new ISO639_2B[] {ISO639_2B.GER}, new Object[] {
 				commandString}));
@@ -336,11 +333,14 @@ public class YamlManager
 				, new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 				helpInfoGerman,
 				helpInfoEnglish}));
-		commandsKeys.put(path+".Displayname"
+		commandsKeys.put(path+".ValueEntry.PutUpCommandPerm"
+				, new Language(new ISO639_2B[] {ISO639_2B.GER}, new Object[] {
+				putUpCmdPermToValueEntrySystem}));
+		commandsKeys.put(path+".ValueEntry.Displayname"
 				, new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 				dnGerman,
 				dnEnglish}));
-		commandsKeys.put(path+".Explanation"
+		commandsKeys.put(path+".ValueEntry.Explanation"
 				, new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 				exGerman,
 				exEnglish}));
@@ -378,8 +378,8 @@ public class YamlManager
 						"&eClick me!"}));
 		languageKeys.put("Headline", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
-						"&e=====&7[&6BonusMalusController&7]&e=====",
-						"&e=====&7[&6BBonusMalusController&7]&e====="}));
+						"&e=====&7[&6ModifierAndValueEntryController&7]&e=====",
+						"&e=====&7[&6ModifierAndValueEntryController&7]&e====="}));
 		languageKeys.put("Next", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 						"&e&nnächste Seite &e==>",
@@ -388,6 +388,14 @@ public class YamlManager
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 						"&e<== &nvorherige Seite",
 						"&e<== &nprevious page"}));
+		languageKeys.put("IsTrue", 
+				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
+						"&a✔",
+						"&a✔"}));
+		languageKeys.put("IsFalse", 
+				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
+						"&c✖",
+						"&c✖"}));
 		languageKeys.put("PlayerCmdCooldown", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 						"&cDu bist noch im Befehls-Cooldown! Bitte warte etwas!",
@@ -416,7 +424,11 @@ public class YamlManager
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 						"&eDer Spieler &f%player% &ehat den Modifikator &f%mod% &emit dem Wert &f%value% &eund den folgenden Werten erhalten: &f%type% | %formula% | %duration% | %internreason% | %reason%",
 						"&eThe player &f%player% &ehas received the modifier &f%mod% &ewith the value &f%value% &eand the following values: &f%type% | %formula% | %duration% | %internreason% | %reason%"}));
-		languageKeys.put("Cmd.Modifier.Boni.Headline", 
+		languageKeys.put("Cmd.Modifier.Add.AddedTemporaryExtends", 
+				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
+						"&eDer Spieler &f%player% &ehat den Modifikator &f%mod% &emit dem Wert &f%value% &eund den folgenden Werten verlängert: &f%type% | %formula% | %duration% (verlängert um %dura%) | %internreason% | %reason%",
+						"&eThe player &f%player% &ehas extends the modifier &f%mod% &ewith the value &f%value% &eand the following values: &f%type% | %formula% | %duration% (extended by %dura%) | %internreason% | %reason%"}));
+		languageKeys.put("Cmd.Modifier.List.Headline", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 						"&e===&fModifikatoren &6von &c%player%&f, Seite %page%&e===",
 						"&e===&fModifiers &6from &c%player%&f, page %page%&e==="}));
@@ -458,16 +470,16 @@ public class YamlManager
 						"%displayname% "}));
 		languageKeys.put("Cmd.Modifier.Registered.ModifierDescriptionTwo", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
-						"&bModifikator Name: &f%mod%~!~&9Anzahl permanente Modifikatoren aller Spieler: &f%permcount%~!~&dAnzahl temporäre Modifikatoren Spieler: &f%tempcount%~!~&7Erklärung:~!~&f%explanation%",
-						"&bModifier Name: &f%mod%~!~&9Number of permanent modifiers of all players: &f%permcount%~!~&dNumber of temporary modifiers players: &f%tempcount%~!~&7Explanation:~!~&f%explanation%"}));
+						"&bModifikator Name: &f%mod%~!~&9Anzahl permanente Modifikatoren aller Spieler: &f%permcount%~!~&dAnzahl temporäre Modifikatoren aller Spieler: &f%tempcount%~!~&7Erklärung:~!~&f%explanation%",
+						"&bModifier Name: &f%mod%~!~&9Number of permanent modifiers of all players: &f%permcount%~!~&dNumber of temporary modifiers of all players: &f%tempcount%~!~&7Explanation:~!~&f%explanation%"}));
 		languageKeys.put("Cmd.Modifier.Registered.Add", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
-						"&a☑~click@SUGGEST_COMMAND@%cmd%+%mod%+<Spieler>+<global/server:servername/world:servername:worldname>+<Wert>+<ADDITION/MULTIPLICATION>+<0/dd-HH:mm>+<Grund...>~hover@SHOW_TEXT@&eKlicke+hier+zum+hinzufügen+eines+Modifikators+für+einen+Spieler!",
-						"&a☑~click@SUGGEST_COMMAND@%cmd%+%mod%+<player>+<global/server:servername/world:servername:worldname>+<value>+<ADDITION/MULTIPLICATION>+<0/dd-HH:mm>+<reason...>~hover@SHOW_TEXT@&eClick+here+to+add+a+modifier+for+a+player!"}));
+						"&a☑~click@SUGGEST_COMMAND@%cmd%+%mod%+<Spieler>+<global/server:servername/world:servername:worldname>+<Wert>+<ADDITION/MULTIPLICATION>+<0/dd-HH:mm>+<Interner+Grund>+<Grund...>~hover@SHOW_TEXT@&eKlicke+hier+zum+&ahinzufügen+&eeines+Modifikators+für+einen+Spieler!",
+						"&a☑~click@SUGGEST_COMMAND@%cmd%+%mod%+<player>+<global/server:servername/world:servername:worldname>+<value>+<ADDITION/MULTIPLICATION>+<0/dd-HH:mm>+<intern+reason>+<reason...>~hover@SHOW_TEXT@&eClick+here+to+&aadd+&ea+modifier+for+a+player!"}));
 		languageKeys.put("Cmd.Modifier.Registered.Remove", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
-						"&c〼~click@SUGGEST_COMMAND@%cmd%+%mod%+<Spieler>+<Grund...>~hover@SHOW_TEXT@&eKlicke+hier+zum+entfernen+eines+Modifikators+für+einen+Spieler!",
-						"&c〼~click@SUGGEST_COMMAND@%cmd%+%mod%+<player>+<reason...>~hover@SHOW_TEXT@&eClick+here+to+remove+a+modifier+for+a+player!"}));
+						"&c〼~click@SUGGEST_COMMAND@%cmd%+%mod%+<Spieler>+<Grund...>~hover@SHOW_TEXT@&eKlicke+hier+zum+&centfernen+&eeines+Modifikators+für+einen+Spieler!",
+						"&c〼~click@SUGGEST_COMMAND@%cmd%+%mod%+<player>+<reason...>~hover@SHOW_TEXT@&eClick+here+to+&cremove+&ea+modifier+for+a+player!"}));
 		languageKeys.put("Cmd.Modifier.Remove.Remove", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 						"&eDer Spieler &f%player% &ehat die &f%count% &eModifikator &f%mod% &emit dem Grund &f%reason% &cverloren!",
@@ -514,35 +526,35 @@ public class YamlManager
 						"%displayname% "}));
 		languageKeys.put("Cmd.ValueEntry.Registered.ValueEntryDescriptionTwo", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
-						"&bValueentry Name: &f%ve%~!~&9Anzahl permanente Valueentry aller Spieler: &f%permcount%~!~&dAnzahl temporäre Valueentry Spieler: &f%tempcount%~!~&7Erklärung:~!~&f%explanation%",
-						"&bValueentry Name: &f%ve%~!~&9Number of permanent valueentry of all players: &f%permcount%~!~&dNumber of temporary valueentry players: &f%tempcount%~!~&7Explanation:~!~&f%explanation%"}));
+						"&bValueentry Name: &f%ve%~!~&9Anzahl permanente Valueentry aller Spieler: &f%permcount%~!~&dAnzahl temporäre Valueentry aller Spieler: &f%tempcount%~!~&7Erklärung:~!~&f%explanation%",
+						"&bValueentry Name: &f%ve%~!~&9Number of permanent valueentry of all players: &f%permcount%~!~&dNumber of temporary valueentry of all players: &f%tempcount%~!~&7Explanation:~!~&f%explanation%"}));
 		languageKeys.put("Cmd.ValueEntry.Registered.Add", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
-						"&a☑~click@SUGGEST_COMMAND@%cmd%+%ve%+<Spieler>+<BOOLEAN/NUMBER/TEXT>+<global/server:servername/world:servername:worldname>+<Wert>+<0/dd-HH:mm>+<Grund...>~hover@SHOW_TEXT@&eKlicke+hier+zum+hinzufügen+einer+Valueentry+für+einen+Spieler!",
-						"&a☑~click@SUGGEST_COMMAND@%cmd%+%ve%+<player>+<BOOLEAN/NUMBER/TEXT>+<global/server:servername/world:servername:worldname>+<value>+<0/dd-HH:mm>+<reason...>~hover@SHOW_TEXT@&eClick+here+to+add+a+valueentry+for+a+player!"}));
+						"&a☑~click@SUGGEST_COMMAND@%cmd%+%ve%+<Spieler>+<BOOLEAN/NUMBER/TEXT>+<global/server:servername/world:servername:worldname>+<Wert>+<0/dd-HH:mm>+<Intern+Grund>+<Grund...>~hover@SHOW_TEXT@&eKlicke+hier+zum+&ahinzufügen+&eeiner+Valueentry+für+einen+Spieler!",
+						"&a☑~click@SUGGEST_COMMAND@%cmd%+%ve%+<player>+<BOOLEAN/NUMBER/TEXT>+<global/server:servername/world:servername:worldname>+<value>+<0/dd-HH:mm>+<intern+reason>+<reason...>~hover@SHOW_TEXT@&eClick+here+to+&aadd+&ea+valueentry+for+a+player!"}));
 		languageKeys.put("Cmd.ValueEntry.Registered.Remove", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
-						"&c〼~click@SUGGEST_COMMAND@%cmd%+%ve%+<Spieler>+<Grund...>~hover@SHOW_TEXT@&eKlicke+hier+zum+entfernen+einer+Valueentry+für+einen+Spieler!",
-						"&c〼~click@SUGGEST_COMMAND@%cmd%+%ve%+<player>+<reason...>~hover@SHOW_TEXT@&eClick+here+to+remove+a+valueentry+for+a+player!"}));
+						"&c〼~click@SUGGEST_COMMAND@%cmd%+%ve%+<Spieler>+<Intern+Grund>~hover@SHOW_TEXT@&eKlicke+hier+zum+&centfernen+&eeiner+Valueentry+für+einen+Spieler!",
+						"&c〼~click@SUGGEST_COMMAND@%cmd%+%ve%+<player>+<intern+reason>~hover@SHOW_TEXT@&eClick+here+to+&cremove+&ea+valueentry+for+a+player!"}));
 		languageKeys.put("Cmd.ValueEntry.Remove.Remove", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 						"&eDer Spieler &f%player% &ehat die &f%count% &eValueentry &f%ve% &emit dem Grund &f%reason% &cverloren!",
 						"&eThe player &f%player% &ehas &clost &ethe &f%count% &evalueentry &f%ve% &ewith the reason &f%reason%&e!"}));
 	}
 	
-	public void initConditionBonusMalusLanguage() //INFO:BonusMalusLanguages
+	public void initModifierValueEntryLanguage() //INFO:ModifierValueEntryLanguages
 	{
 		cbmlanguageKeys.put(Bypass.Permission.OTHERPLAYER.toString()+".Displayname",
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
-						"&eByasspermission für /mavec boni <Zahl> [Spieler]",
-						"&eBypasspermission for /mavec boni <number> [player]"}));
+						"&eByasspermission für /mavec modifier list <Zahl> [Spieler]",
+						"&eBypasspermission for /mavec modifier list <number> [player]"}));
 		cbmlanguageKeys.put(Bypass.Permission.OTHERPLAYER.toString()+".Explanation",
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 						"&eByasspermission für",
-						"&eden Befehl /mavec boni um",
-						"&eBoni anderer Spieler zu sehen.",
+						"&eden Befehl /mavec modifier list um",
+						"&eModifier anderer Spieler zu sehen.",
 						"&eBypasspermission for",
-						"&ethe /mavec boni to see",
-						"&ebonuses of other players."}));
+						"&ethe /mavec modifier list to see",
+						"&emodifiers of other players."}));
 	}
 }

@@ -41,7 +41,7 @@ public class Modifier extends main.java.me.avankziar.ifh.general.modifier.object
 		try
 		{
 			String sql = "INSERT INTO `" + tablename
-					+ "`(`player_uuid`, `modifier_name`, `modifier_type`, `modifier_value`,"
+					+ "`(`player_uuid`, `modification_name`, `modifier_type`, `modifier_value`,"
 					+ " `intern_reason`, `display_reason`,"
 					+ " `server`, `world`, `duration`) " 
 					+ "VALUES("
@@ -74,7 +74,7 @@ public class Modifier extends main.java.me.avankziar.ifh.general.modifier.object
 		try
 		{
 			String sql = "UPDATE `" + tablename
-				+ "` SET `player_uuid` = ?, `modifier_name` = ?, `modifier_type` = ?, `modifier_value` = ?,"
+				+ "` SET `player_uuid` = ?, `modification_name` = ?, `modifier_type` = ?, `modifier_value` = ?,"
 				+ " `intern_reason` = ?, `display_reason` = ?,"
 				+ " `server` = ?, `world` = ?, `duration` = ?" 
 				+ " WHERE "+whereColumn;
@@ -128,7 +128,7 @@ public class Modifier extends main.java.me.avankziar.ifh.general.modifier.object
 						new Modifier(
 								rs.getInt("id"),
 								UUID.fromString(rs.getString("player_uuid")),
-								rs.getString("modifier_name"),
+								rs.getString("modification_name"),
 								ModifierType.valueOf(rs.getString("modifier_type")),
 								rs.getDouble("modifier_value"),
 								rs.getString("intern_reason"),

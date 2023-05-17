@@ -111,7 +111,7 @@ public class ARGValueEntryList extends ArgumentModule
 			ArrayList<String> list = new ArrayList<>();
 			if(plugin.getValueEntry().hasValueEntry(uuid, c.getInternName(), ValueType.BOOLEAN, null, server, world))
 			{
-				list.add(String.valueOf(plugin.getValueEntry().getBooleanValueEntry(uuid, c.getInternName(), server, world)));
+				list.add(plugin.getValueEntry().getBooleanValueEntry(uuid, c.getInternName(), server, world).toString());
 			}
 			if(plugin.getValueEntry().hasValueEntry(uuid, c.getInternName(), ValueType.NUMBER, null, server, world))
 			{
@@ -123,8 +123,14 @@ public class ARGValueEntryList extends ArgumentModule
 			}
 			if(list.isEmpty())
 			{
+				if(i >= end)
+				{
+					break;
+				}
+				i++;
 				continue;
 			}
+			map.put(c, list.toArray(new String[list.size()]));
 			i++;
 			if(i >= end)
 			{

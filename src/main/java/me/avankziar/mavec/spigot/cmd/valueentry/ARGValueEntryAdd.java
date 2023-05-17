@@ -47,7 +47,7 @@ public class ARGValueEntryAdd extends ArgumentModule
 		OfflinePlayer other = Bukkit.getPlayer(othername);
 		if(other == null || !other.hasPlayedBefore())
 		{
-			sender.sendMessage(ChatApi.tl(plugin.getYamlHandler().getLang().getString("PlayerNotExist")));
+			sender.sendMessage(ChatApi.tl(plugin.getYamlHandler().getLang().getString("NoPlayerExist")));
 			return;
 		}
 		final UUID uuid = other.getUniqueId();
@@ -110,7 +110,11 @@ public class ARGValueEntryAdd extends ArgumentModule
 		{
 			reason = "/";
 		}
-		plugin.getValueEntry().addValueEntry(uuid, valuelable, value, vt, internReason, reason, server, world, duration);
+		boolean boo = plugin.getValueEntry().modifyValueEntry(uuid, valuelable, value, vt, internReason, reason, server, world, duration);
+		if(!boo)
+		{
+			plugin.getValueEntry().addValueEntry(uuid, valuelable, value, vt, internReason, reason, server, world, duration);
+		}
 		if(duration < 0)
 		{
 			sender.sendMessage(ChatApi.tl(plugin.getYamlHandler().getLang().getString("Cmd.ValueEntry.Add.AddedPermanent")

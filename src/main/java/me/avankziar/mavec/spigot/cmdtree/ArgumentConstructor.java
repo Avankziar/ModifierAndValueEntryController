@@ -24,12 +24,8 @@ public class ArgumentConstructor extends BaseConstructor
     			cet,
     			getPlugin().getYamlHandler().getCommands().getString(path+".Argument"),
     			path,
-    			getPlugin().getYamlHandler().getCommands().getString(path+".Permission"),
-    			getPlugin().getYamlHandler().getCommands().getString(path+".Suggestion"),
-    			getPlugin().getYamlHandler().getCommands().getString(path+".CommandString"),
-    			getPlugin().getYamlHandler().getCommands().getString(path+".HelpInfo"),
-    			canConsoleAccess,
-				getPlugin().getYamlHandler().getCommands().getBoolean(path+".PutUpCommandPermToBonusMalusSystem", false));
+    			getPlugin().getYamlHandler().getCommands(),
+    			canConsoleAccess);
         this.minArgsConstructor = minArgs;
         this.maxArgsConstructor = maxArgs;
         this.minArgsTablist = minArgs;
@@ -69,12 +65,8 @@ public class ArgumentConstructor extends BaseConstructor
     			cet,
     			y.getString(path+".Argument"),
     			path,
-    			y.getString(path+".Permission"),
-    			y.getString(path+".Suggestion"),
-    			y.getString(path+".CommandString"),
-    			y.getString(path+".HelpInfo"),
-    			canConsoleAccess,
-				getPlugin().getYamlHandler().getCommands().getBoolean(path+".PutUpCommandPermToBonusMalusSystem", false));
+    			y,
+    			canConsoleAccess);
         this.minArgsConstructor = minArgs;
         this.maxArgsConstructor = maxArgs;
         this.minArgsTablist = minArgs;

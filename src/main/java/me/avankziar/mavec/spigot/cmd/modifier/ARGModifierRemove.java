@@ -41,7 +41,7 @@ public class ARGModifierRemove extends ArgumentModule
 		OfflinePlayer other = Bukkit.getPlayer(othername);
 		if(other == null || !other.hasPlayedBefore())
 		{
-			sender.sendMessage(ChatApi.tl(plugin.getYamlHandler().getLang().getString("PlayerNotExist")));
+			sender.sendMessage(ChatApi.tl(plugin.getYamlHandler().getLang().getString("NoPlayerExist")));
 			return;
 		}
 		final UUID uuid = other.getUniqueId();

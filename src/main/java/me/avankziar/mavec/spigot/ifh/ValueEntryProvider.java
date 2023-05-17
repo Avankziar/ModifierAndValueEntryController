@@ -182,25 +182,28 @@ public class ValueEntryProvider implements main.java.me.avankziar.ifh.general.va
 		{
 			return plugin.getMysqlHandler().exist(MysqlHandler.Type.VALUEENTRY,
 					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `intern_reason` = ? AND `server` = ? AND `world` = ?"
-					, uuid.toString(), valueEntryName, internReason, server, world);
+					, uuid.toString(), valueEntryName, type.toString(), internReason, server, world);
+		} else if(internReason != null && server == null && world == null)
+		{
+			return plugin.getMysqlHandler().exist(MysqlHandler.Type.VALUEENTRY,
+					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `intern_reason` = ?"
+					, uuid.toString(), valueEntryName, type.toString(), internReason);
 		} else if(internReason == null && server != null && world == null)
 		{
 			return plugin.getMysqlHandler().exist(MysqlHandler.Type.VALUEENTRY,
 					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `server` = ?"
-					, uuid.toString(), valueEntryName, server);
+					, uuid.toString(), valueEntryName, type.toString(), server);
 		} else if(internReason == null && server != null && world != null)
 		{
 			return plugin.getMysqlHandler().exist(MysqlHandler.Type.VALUEENTRY,
 					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `server` = ? AND `world` = ?"
-					, uuid.toString(), valueEntryName, server, world);
-		} else if(internReason == null && (server == null && world == null)
-				|| server == null && world != null)
+					, uuid.toString(), valueEntryName, type.toString(), server, world);
+		} else
 		{
 			return plugin.getMysqlHandler().exist(MysqlHandler.Type.VALUEENTRY,
 					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ?"
-					, uuid.toString(), valueEntryName);
+					, uuid.toString(), valueEntryName, type.toString());
 		}
-		return false;
 	}
 	
 	public Boolean getBooleanValueEntry(UUID uuid, String valuelableName, @Nullable String server, @Nullable String world)
@@ -209,26 +212,36 @@ public class ValueEntryProvider implements main.java.me.avankziar.ifh.general.va
 		{
 			return null;
 		}
-		if(hasValueEntry(uuid, valuelableName, ValueType.BOOLEAN, null, server, world))
+		ValueEntry ve = null;
+		if(server != null && world != null && hasValueEntry(uuid, valuelableName, ValueType.BOOLEAN, null, server, world))
 		{
-			ValueEntry ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY, "`id` ASC",
-					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `server` = ? AND `world` = ?"
-					, uuid.toString(), valuelableName, ValueType.BOOLEAN, server, world);
-			return ve != null ? Boolean.valueOf(ve.getValue()) : null;
+			ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY,
+					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `server` = ? AND `world` = ?",
+					uuid.toString(), valuelableName, ValueType.BOOLEAN.toString(), server, world);
+			if(ve != null)
+			{
+				return Boolean.valueOf(ve.getValue());
+			}
 		}
-		if(hasValueEntry(uuid, valuelableName, ValueType.BOOLEAN, null, server, null))
+		if(server != null && hasValueEntry(uuid, valuelableName, ValueType.BOOLEAN, null, server, null))
 		{
-			ValueEntry ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY, "`id` ASC",
-					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `server` = ?"
-					, uuid.toString(), valuelableName, ValueType.BOOLEAN, server, null);
-			return ve != null ? Boolean.valueOf(ve.getValue()) : null;
+			ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY,
+					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `server` = ?",
+					uuid.toString(), valuelableName, ValueType.BOOLEAN.toString(), server);
+			if(ve != null)
+			{
+				return Boolean.valueOf(ve.getValue());
+			}
 		}
 		if(hasValueEntry(uuid, valuelableName, ValueType.BOOLEAN, null, null, null))
 		{
-			ValueEntry ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY, "`id` ASC",
-					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ?"
-					, uuid.toString(), valuelableName, ValueType.BOOLEAN, null, null);
-			return ve != null ? Boolean.valueOf(ve.getValue()) : null;
+			ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY,
+					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ?",
+					uuid.toString(), valuelableName, ValueType.BOOLEAN.toString());
+			if(ve != null)
+			{
+				return Boolean.valueOf(ve.getValue());
+			}
 		}
 		return null;
 	}
@@ -239,26 +252,36 @@ public class ValueEntryProvider implements main.java.me.avankziar.ifh.general.va
 		{
 			return null;
 		}
-		if(hasValueEntry(uuid, valuelableName, ValueType.NUMBER, null, server, world))
+		ValueEntry ve = null;
+		if(server != null && world != null && hasValueEntry(uuid, valuelableName, ValueType.NUMBER, null, server, world))
 		{
-			ValueEntry ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY, "`id` ASC",
+			ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY,
 					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `server` = ? AND `world` = ?"
-					, uuid.toString(), valuelableName, ValueType.NUMBER, server, world);
-			return ve != null ? Double.valueOf(ve.getValue()) : null;
+					, uuid.toString(), valuelableName, ValueType.NUMBER.toString(), server, world);
+			if(ve != null)
+			{
+				return Double.valueOf(ve.getValue());
+			}
 		}
-		if(hasValueEntry(uuid, valuelableName, ValueType.NUMBER, null, server, null))
+		if(server != null && hasValueEntry(uuid, valuelableName, ValueType.NUMBER, null, server, null))
 		{
-			ValueEntry ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY, "`id` ASC",
+			ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY,
 					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `server` = ?"
-					, uuid.toString(), valuelableName, ValueType.NUMBER, server, null);
-			return ve != null ? Double.valueOf(ve.getValue()) : null;
+					, uuid.toString(), valuelableName, ValueType.NUMBER.toString(), server);
+			if(ve != null)
+			{
+				return Double.valueOf(ve.getValue());
+			}
 		}
 		if(hasValueEntry(uuid, valuelableName, ValueType.NUMBER, null, null, null))
 		{
-			ValueEntry ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY, "`id` ASC",
+			ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY,
 					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ?"
-					, uuid.toString(), valuelableName, ValueType.NUMBER, null, null);
-			return ve != null ? Double.valueOf(ve.getValue()) : null;
+					, uuid.toString(), valuelableName, ValueType.NUMBER.toString());
+			if(ve != null)
+			{
+				return Double.valueOf(ve.getValue());
+			}
 		}
 		return null;
 	}
@@ -269,26 +292,36 @@ public class ValueEntryProvider implements main.java.me.avankziar.ifh.general.va
 		{
 			return null;
 		}
-		if(hasValueEntry(uuid, valuelableName, ValueType.TEXT, null, server, world))
+		ValueEntry ve = null;
+		if(server != null && world != null && hasValueEntry(uuid, valuelableName, ValueType.TEXT, null, server, world))
 		{
-			ValueEntry ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY, "`id` ASC",
+			ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY,
 					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `server` = ? AND `world` = ?"
-					, uuid.toString(), valuelableName, ValueType.TEXT, server, world);
-			return ve != null ? ve.getValue() : null;
+					, uuid.toString(), valuelableName, ValueType.TEXT.toString(), server, world);
+			if(ve != null)
+			{
+				return ve.getValue();
+			}
 		}
-		if(hasValueEntry(uuid, valuelableName, ValueType.TEXT, null, server, null))
+		if(server != null && hasValueEntry(uuid, valuelableName, ValueType.TEXT, null, server, null))
 		{
-			ValueEntry ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY, "`id` ASC",
+			ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY,
 					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `server` = ?"
-					, uuid.toString(), valuelableName, ValueType.TEXT, server, null);
-			return ve != null ? ve.getValue() : null;
+					, uuid.toString(), valuelableName, ValueType.TEXT.toString(), server);
+			if(ve != null)
+			{
+				return ve.getValue();
+			}
 		}
 		if(hasValueEntry(uuid, valuelableName, ValueType.TEXT, null, null, null))
 		{
-			ValueEntry ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY, "`id` ASC",
+			ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY,
 					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ?"
-					, uuid.toString(), valuelableName, ValueType.TEXT, null, null);
-			return ve != null ? ve.getValue() : null;
+					, uuid.toString(), valuelableName, ValueType.TEXT.toString());
+			if(ve != null)
+			{
+				return ve.getValue();
+			}
 		}
 		return null;
 	}
@@ -313,50 +346,76 @@ public class ValueEntryProvider implements main.java.me.avankziar.ifh.general.va
 	
 	public boolean modifyValueEntry(UUID uuid, String valuelableName,
 			String value, ValueType type,
-			@Nullable String internReason, @Nullable String displayReason,
+			String internReason, @Nullable String displayReason,
 			@Nullable String server, @Nullable String world,
 			Long duration)
-	{
-		if(hasValueEntry(uuid, valuelableName, type, null, server, world))
+	{ //mavec valueentry add modifierandvalueentrycontroller-otherplayer Avankziar NUMBER global 55 05-00:00 to_do &dTadaa
+		if(!hasValueEntry(uuid, valuelableName, type, internReason, server, world))
 		{
 			return false;
 		}
-		ValueEntry ve = (ValueEntry) plugin.getMysqlHandler().getData(Type.VALUEENTRY,
-				"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `server` = ? AND `world` = ?",
-				uuid.toString(), valuelableName, type.toString(), server, world);
+		ValueEntry ve = null;
+		if(server != null && world == null)
+		{
+			ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY,
+					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `intern_reason` = ? AND `server` = ?"
+					, uuid.toString(), valuelableName, type.toString(), internReason, server);
+		} else if(server != null && world != null)
+		{
+			ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY,
+					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `intern_reason` = ? AND `server` = ? AND `world` = ?"
+					, uuid.toString(), valuelableName, type.toString(), internReason, server, world);
+		} else
+		{
+			ve = (ValueEntry) plugin.getMysqlHandler().getData(MysqlHandler.Type.VALUEENTRY,
+					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `intern_reason` = ?"
+					, uuid.toString(), valuelableName, type.toString(), internReason);
+		}
 		if(ve == null)
 		{
 			return false;
 		}
 		ve.setValue(value);
-		if(internReason != null)
-		{
-			ve.setInternReason(internReason);
-		}
 		if(displayReason != null)
 		{
 			ve.setDisplayReason(displayReason);
 		}
 		if(duration != null)
 		{
-			ve.setDuration(duration);
+			if(ve.getDuration() < 0 && duration > 0)
+			{
+				ve.setDuration(duration+System.currentTimeMillis());
+			} else if(ve.getDuration() > 0 && duration > 0)
+			{
+				long dura = ve.getDuration() - System.currentTimeMillis();
+				if(dura > 0)
+				{
+					ve.setDuration(dura+duration+System.currentTimeMillis());
+				} else
+				{
+					ve.setDuration(duration+System.currentTimeMillis());
+				}
+			} else if(duration < 0)
+			{
+				ve.setDuration(-1);
+			}
 		}
 		if(server != null && world != null)
 		{
 			plugin.getMysqlHandler().updateData(Type.VALUEENTRY, ve,
-					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `server` = ? AND `world` = ?",
-					uuid.toString(), valuelableName, type.toString(), server, world);
+					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `intern_reason` = ? AND `server` = ? AND `world` = ?",
+					uuid.toString(), valuelableName, type.toString(), internReason, server, world);
 		} else if(server != null && world == null)
 		{
 			plugin.getMysqlHandler().updateData(Type.VALUEENTRY, ve,
-					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `server` = ?",
-					uuid.toString(), valuelableName, type.toString(), server);
-		} else if((server == null && world == null) || (server == null && world != null))
+					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `intern_reason` = ? AND `server` = ?",
+					uuid.toString(), valuelableName, type.toString(), internReason, server);
+		} else
 		{
 			plugin.getMysqlHandler().updateData(Type.VALUEENTRY, ve,
-					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `server` = ? AND `world` = ?",
-					uuid.toString(), valuelableName, type.toString());
+					"`player_uuid` = ? AND `valuelable_name` = ? AND `valueentry_type` = ? AND `intern_reason` = ?",
+					uuid.toString(), valuelableName, type.toString(), internReason);
 		}
-		return false;
+		return true;
 	}
 }

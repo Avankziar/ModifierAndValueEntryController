@@ -107,6 +107,7 @@ public class ARGModifierList extends ArgumentModule
 			Modification modi = rg.get(i);
 			if(!plugin.getModifier().hasModifier(uuid, modi.getInternName(), null, server, world))
 			{
+				i++;
 				continue;
 			}
 			map.put(modi, plugin.getModifier().getResult(uuid, 1.0, modi.getInternName(),

@@ -21,8 +21,8 @@ public class MysqlHandler
 		MODIFICATION("mavecModification", new Modification()),
 		MODIFIER("mavecModifier", new Modifier()),
 		MODIFIERBASEVALUE("mavecModifierBaseValue", new ModifierBaseValue()),
-		VALUELABLE("ccsCondition", new ValueLable()),
-		VALUEENTRY("ccsConditionValue", new ValueEntry());
+		VALUELABLE("mavecValueLable", new ValueLable()),
+		VALUEENTRY("mavecValueEntry", new ValueEntry());
 		
 		private Type(String value, Object object)
 		{
@@ -159,7 +159,7 @@ public class MysqlHandler
 				return true;
 			} catch (Exception e)
 			{
-				mh.log(Level.WARNING, "Could not create "+object.getClass().getName()+" Object!", e);
+				mh.log(Level.WARNING, "Could not update "+object.getClass().getName()+" Object!", e);
 			}
 		}
 		return false;
@@ -180,7 +180,7 @@ public class MysqlHandler
 				}
 			} catch (Exception e)
 			{
-				mh.log(Level.WARNING, "Could not create "+object.getClass().getName()+" Object!", e);
+				mh.log(Level.WARNING, "Could not get "+object.getClass().getName()+" Object!", e);
 			}
 		}
 		return null;

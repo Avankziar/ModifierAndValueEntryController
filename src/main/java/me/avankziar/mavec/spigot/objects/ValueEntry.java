@@ -47,7 +47,7 @@ public class ValueEntry extends main.java.me.avankziar.ifh.general.valueentry.ob
 					+ " `server`, `world`, `duration`) " 
 					+ "VALUES("
 					+ "?, ?, ?, "
-					+ "?, ?, "
+					+ "?, ?, ?,"
 					+ "?, ?, ?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, getUUID().toString());
@@ -142,6 +142,7 @@ public class ValueEntry extends main.java.me.avankziar.ifh.general.valueentry.ob
 		} catch (SQLException e)
 		{
 			this.log(Level.WARNING, "SQLException! Could not get a "+this.getClass().getSimpleName()+" Object!", e);
+			
 		}
 		return new ArrayList<>();
 	}

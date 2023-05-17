@@ -161,7 +161,7 @@ public class MysqlSetup
 		String data = "CREATE TABLE IF NOT EXISTS `" + MysqlHandler.Type.MODIFIER.getValue()
 		+ "` (id int AUTO_INCREMENT PRIMARY KEY,"
 		+ " player_uuid char(36) NOT NULL,"
-		+ " modifier_name text NOT NULL,"
+		+ " modification_name text NOT NULL,"
 		+ " modifier_type text,"
 		+ " modifier_value double NOT NULL,"
 		+ " intern_reason text,"

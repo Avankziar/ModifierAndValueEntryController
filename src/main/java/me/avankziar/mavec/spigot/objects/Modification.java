@@ -30,12 +30,11 @@ public class Modification extends main.java.me.avankziar.ifh.general.modifier.ob
 					+ "`(`modification_name`, `display_name`,"
 					+ " `modification_type`, `explanation`) " 
 					+ "VALUES("
-					+ "?, ?, ?, "
-					+ "?)";
+					+ "?, ?, ?, ?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
 	        ps.setString(1, getInternName());
 	        ps.setString(2, getDisplayName());
-	        ps.setString(3, getModification().toString());
+	        ps.setString(3, getType().toString());
 	        ps.setString(4, String.join("~!~", getExplanation()));
 	        int i = ps.executeUpdate();
 	        MysqlHandler.addRows(MysqlHandler.QueryType.INSERT, i);
@@ -59,7 +58,7 @@ public class Modification extends main.java.me.avankziar.ifh.general.modifier.ob
 			PreparedStatement ps = conn.prepareStatement(sql);
 	        ps.setString(1, getInternName());
 	        ps.setString(2, getDisplayName());
-	        ps.setString(3, getModification().toString());
+	        ps.setString(3, getType().toString());
 	        ps.setString(4, String.join("~!~", getExplanation()));
 			int i = 5;
 			for(Object o : whereObject)

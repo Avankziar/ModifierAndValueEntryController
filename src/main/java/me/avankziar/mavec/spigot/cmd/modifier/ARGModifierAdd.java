@@ -14,6 +14,8 @@ import main.java.me.avankziar.mavec.spigot.assistance.MatchApi;
 import main.java.me.avankziar.mavec.spigot.assistance.TimeHandler;
 import main.java.me.avankziar.mavec.spigot.cmdtree.ArgumentConstructor;
 import main.java.me.avankziar.mavec.spigot.cmdtree.ArgumentModule;
+import main.java.me.avankziar.mavec.spigot.database.MysqlHandler;
+import main.java.me.avankziar.mavec.spigot.objects.Modifier;
 import net.md_5.bungee.api.chat.ClickEvent;
 
 public class ARGModifierAdd extends ArgumentModule
@@ -48,7 +50,7 @@ public class ARGModifierAdd extends ArgumentModule
 		OfflinePlayer other = Bukkit.getPlayer(othername);
 		if(other == null || !other.hasPlayedBefore())
 		{
-			sender.sendMessage(ChatApi.tl(plugin.getYamlHandler().getLang().getString("PlayerNotExist")));
+			sender.sendMessage(ChatApi.tl(plugin.getYamlHandler().getLang().getString("NoPlayerExist")));
 			return;
 		}
 		final UUID uuid = other.getUniqueId();
@@ -118,30 +120,107 @@ public class ARGModifierAdd extends ArgumentModule
 		{
 			reason = "/";
 		}
-		plugin.getModifier().addFactor(uuid, modifier, d, modit, reason, internReason, server, world, duration);
-		if(duration < 0)
+		Modifier modi = null;
+		if(server != null && world == null)
 		{
-			sender.sendMessage(ChatApi.tl(plugin.getYamlHandler().getLang().getString("Cmd.Modifier.Add.AddedPermanent")
-					.replace("%mod%", modifier)
-					.replace("%player%", othername)
-					.replace("%type%", type)
-					.replace("%formula%", modit.toString())
-					.replace("%value%", value)
-					.replace("%internreason%", internReason)
-					.replace("%reason%", reason)
-					));
+			modi = (Modifier) plugin.getMysqlHandler().getData(MysqlHandler.Type.MODIFIER,
+					"`player_uuid` = ? AND `modification_name` = ? AND `intern_reason` = ? AND `server` = ?", 
+					uuid.toString(), modifier, internReason, server);
+		} else if(server != null && world != null)
+		{
+			modi = (Modifier) plugin.getMysqlHandler().getData(MysqlHandler.Type.MODIFIER,
+					"`player_uuid` = ? AND `modification_name` = ? AND `intern_reason` = ? AND `server` = ? AND `world` = ?",
+					uuid.toString(), modifier, internReason, server, world);
 		} else
 		{
-			sender.sendMessage(ChatApi.tl(plugin.getYamlHandler().getLang().getString("Cmd.Modifier.Add.AddedTemporary")
-					.replace("%mod%", modifier)
-					.replace("%player%", othername)
-					.replace("%type%", type)
-					.replace("%formula%", modit.toString())
-					.replace("%value%", value)
-					.replace("%duration%", TimeHandler.getRepeatingTime(duration, "dd-HH:mm"))
-					.replace("%internreason%", internReason)
-					.replace("%reason%", reason)
-					));
+			modi = (Modifier) plugin.getMysqlHandler().getData(MysqlHandler.Type.MODIFIER,
+					"`player_uuid` = ? AND `modification_name` = ? AND `intern_reason` = ?",
+					uuid.toString(), modifier, internReason);
+		}
+		plugin.getModifier().addFactor(uuid, modifier, d, modit, internReason, reason, server, world, duration);
+		if(modi != null)
+		{
+			long dura = 0;
+			if(duration < 0 && modi.getDuration() > 0)
+			{
+				dura = -1;
+			} else if(duration > 0 && modi.getDuration() > 0)
+			{
+				dura = modi.getDuration() - System.currentTimeMillis();
+				if(dura > 0)
+				{
+					dura = dura + duration;
+				} else
+				{
+					dura = duration;
+				}
+			} else
+			{
+				dura = duration;
+			}
+			if(dura == -1)
+			{
+				sender.sendMessage(ChatApi.tl(plugin.getYamlHandler().getLang().getString("Cmd.Modifier.Add.AddedPermanent")
+						.replace("%mod%", modifier)
+						.replace("%player%", othername)
+						.replace("%type%", type)
+						.replace("%formula%", modit.toString())
+						.replace("%value%", value)
+						.replace("%internreason%", internReason)
+						.replace("%reason%", reason)
+						));
+			} else if(dura == duration)
+			{
+				sender.sendMessage(ChatApi.tl(plugin.getYamlHandler().getLang().getString("Cmd.Modifier.Add.AddedTemporary")
+						.replace("%mod%", modifier)
+						.replace("%player%", othername)
+						.replace("%type%", type)
+						.replace("%formula%", modit.toString())
+						.replace("%value%", value)
+						.replace("%duration%", TimeHandler.getRepeatingTime(duration, "dd-HH:mm"))
+						.replace("%internreason%", internReason)
+						.replace("%reason%", reason)
+						));
+			} else if(dura > duration)
+			{
+				sender.sendMessage(ChatApi.tl(plugin.getYamlHandler().getLang().getString("Cmd.Modifier.Add.AddedTemporaryExtends")
+						.replace("%mod%", modifier)
+						.replace("%player%", othername)
+						.replace("%type%", type)
+						.replace("%formula%", modit.toString())
+						.replace("%value%", value)
+						.replace("%dura%", TimeHandler.getRepeatingTime(duration, "dd-HH:mm"))
+						.replace("%duration%", TimeHandler.getRepeatingTime(dura, "dd-HH:mm"))
+						.replace("%internreason%", internReason)
+						.replace("%reason%", reason)
+						));
+			}
+		} else
+		{
+			if(duration < 0)
+			{
+				sender.sendMessage(ChatApi.tl(plugin.getYamlHandler().getLang().getString("Cmd.Modifier.Add.AddedPermanent")
+						.replace("%mod%", modifier)
+						.replace("%player%", othername)
+						.replace("%type%", type)
+						.replace("%formula%", modit.toString())
+						.replace("%value%", value)
+						.replace("%internreason%", internReason)
+						.replace("%reason%", reason)
+						));
+			} else
+			{
+				sender.sendMessage(ChatApi.tl(plugin.getYamlHandler().getLang().getString("Cmd.Modifier.Add.AddedTemporary")
+						.replace("%mod%", modifier)
+						.replace("%player%", othername)
+						.replace("%type%", type)
+						.replace("%formula%", modit.toString())
+						.replace("%value%", value)
+						.replace("%duration%", TimeHandler.getRepeatingTime(duration, "dd-HH:mm"))
+						.replace("%internreason%", internReason)
+						.replace("%reason%", reason)
+						));
+			}
 		}
 		return;
 	}

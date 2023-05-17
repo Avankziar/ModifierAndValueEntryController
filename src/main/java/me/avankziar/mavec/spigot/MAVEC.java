@@ -376,19 +376,18 @@ public class MAVEC extends JavaPlugin
     	log.info(pluginName + " detected InterfaceHub >>> ValueEntry.class is provided!");
     	for(BaseConstructor bc : getCommandHelpList())
 		{
-			if(!bc.isPutUpCmdPermToConditionSystem())
+			if(!bc.isPutUpCmdPermToValueEntrySystem())
 			{
 				continue;
 			}
-			if(getValueEntry().isRegistered(bc.getConditionPath()))
+			if(getValueEntry().isRegistered(bc.getValueEntryPath()))
 			{
 				continue;
 			}
-			String[] ex = {plugin.getYamlHandler().getCommands().getString(bc.getPath()+".Explanation")};
 			getValueEntry().register(
-					bc.getConditionPath(),
-					plugin.getYamlHandler().getCommands().getString(bc.getPath()+".Displayname", "Command "+bc.getName()),
-					ex);
+					bc.getValueEntryPath(),
+					bc.getValueEntryDisplayName(),
+					bc.getValueEntryExplanation());
 		}
 		List<Bypass.Permission> list = new ArrayList<Bypass.Permission>(EnumSet.allOf(Bypass.Permission.class));
 		for(Bypass.Permission ept : list)
@@ -397,10 +396,10 @@ public class MAVEC extends JavaPlugin
 			{
 				continue;
 			}
-			List<String> lar = plugin.getYamlHandler().getCBMLang().getStringList(ept.toString()+".Explanation");
+			List<String> lar = plugin.getYamlHandler().getMVELang().getStringList(ept.toString()+".Explanation");
 			getValueEntry().register(
 					ept.getValueLable(),
-					plugin.getYamlHandler().getCBMLang().getString(ept.toString()+".Displayname", ept.toString()),
+					plugin.getYamlHandler().getMVELang().getString(ept.toString()+".Displayname", ept.toString()),
 					lar.toArray(new String[lar.size()]));
 		}
 		if(!plugin.getServer().getPluginManager().isPluginEnabled("InterfaceHub")) 

@@ -27,8 +27,8 @@ public class YamlHandler
 	private String languages;
 	private File language = null;
 	private YamlConfiguration lang = new YamlConfiguration();
-	private File cbmlanguage = null;
-	private YamlConfiguration cbmlang = new YamlConfiguration();
+	private File mvelanguage = null;
+	private YamlConfiguration mvelang = new YamlConfiguration();
 
 	public YamlHandler(MAVEC plugin)
 	{
@@ -51,9 +51,9 @@ public class YamlHandler
 		return lang;
 	}
 	
-	public YamlConfiguration getCBMLang()
+	public YamlConfiguration getMVELang()
 	{
-		return cbmlang;
+		return mvelang;
 	}
 	
 	private YamlConfiguration loadYamlTask(File file, YamlConfiguration yaml)
@@ -254,24 +254,24 @@ public class YamlHandler
 			return false;
 		}
 		writeFile(language, lang, plugin.getYamlManager().getLanguageKey());
-		cbmlanguage = new File(directory.getPath(), "cbm_"+languageString+".yml");
-		if(!cbmlanguage.exists()) 
+		mvelanguage = new File(directory.getPath(), "mve_"+languageString+".yml");
+		if(!mvelanguage.exists()) 
 		{
-			MAVEC.log.info("Create cbm_%lang%.yml...".replace("%lang%", languageString));
+			MAVEC.log.info("Create mve_%lang%.yml...".replace("%lang%", languageString));
 			try(InputStream in = plugin.getResource("default.yml"))
 			{
-				Files.copy(in, cbmlanguage.toPath());
+				Files.copy(in, mvelanguage.toPath());
 			} catch (IOException e)
 			{
 				e.printStackTrace();
 			}
 		}
-		cbmlang = loadYamlTask(cbmlanguage, cbmlang);
-		if(cbmlang == null)
+		mvelang = loadYamlTask(mvelanguage, mvelang);
+		if(mvelang == null)
 		{
 			return false;
 		}
-		writeFile(cbmlanguage, cbmlang, plugin.getYamlManager().getConditionBonusMalusLanguageKey());
+		writeFile(mvelanguage, mvelang, plugin.getYamlManager().getModifierValueEntryLanguageKey());
 		return true;
 	}
 }
