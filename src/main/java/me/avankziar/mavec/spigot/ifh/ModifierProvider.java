@@ -464,33 +464,27 @@ public class ModifierProvider implements main.java.me.avankziar.ifh.general.modi
 	
 	public double getResult(final UUID uuid, final double baseValue, final String modificationName, String server, String world)
 	{
-		if(!plugin.getMysqlHandler().exist(MysqlHandler.Type.MODIFIERBASEVALUE,
-				"`player_uuid` = ? AND `modification_name` = ? AND `last_base_value` = ?",
-				uuid.toString(), modificationName, baseValue))
+		new BukkitRunnable()
 		{
-			new BukkitRunnable()
+			@Override
+			public void run()
 			{
-				
-				@Override
-				public void run()
+				ModifierBaseValue bmbv = (ModifierBaseValue) plugin.getMysqlHandler().getData(MysqlHandler.Type.MODIFIERBASEVALUE,
+						"`player_uuid` = ? AND `modification_name` = ?",
+						uuid.toString(), modificationName);
+				if(bmbv == null)
 				{
-					ModifierBaseValue bmbv = (ModifierBaseValue) plugin.getMysqlHandler().getData(MysqlHandler.Type.MODIFIERBASEVALUE,
-							"`player_uuid` = ? AND `modification_name` = ? AND `last_base_value` = ?",
-							uuid.toString(), modificationName, baseValue);
-					if(bmbv == null)
-					{
-						bmbv = new ModifierBaseValue(uuid, modificationName, baseValue);
-						plugin.getMysqlHandler().create(MysqlHandler.Type.MODIFIERBASEVALUE, bmbv);
-					} else
-					{
-						bmbv.setLastBaseValue(baseValue);
-						plugin.getMysqlHandler().updateData(MysqlHandler.Type.MODIFIERBASEVALUE, bmbv,
-								"`player_uuid` = ? AND `modification_name` = ?",
-								uuid.toString(), modificationName);
-					}
+					bmbv = new ModifierBaseValue(uuid, modificationName, baseValue);
+					plugin.getMysqlHandler().create(MysqlHandler.Type.MODIFIERBASEVALUE, bmbv);
+				} else
+				{
+					bmbv.setLastBaseValue(baseValue);
+					plugin.getMysqlHandler().updateData(MysqlHandler.Type.MODIFIERBASEVALUE, bmbv,
+							"`player_uuid` = ? AND `modification_name` = ?",
+							uuid.toString(), modificationName);
 				}
-			}.runTaskLaterAsynchronously(plugin, 10L);
-		}
+			}
+		}.runTaskLaterAsynchronously(plugin, 10L);
 		if(!isRegistered(modificationName) || !hasModifier(uuid, modificationName, null, server, world))
 		{
 			return baseValue;

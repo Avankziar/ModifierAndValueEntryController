@@ -454,7 +454,7 @@ public class YamlManager
 						"%value% "}));
 		languageKeys.put("Cmd.Modifier.List.BaseValue", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
-						"&#fc9303Basewert: &r%value%",
+						"&#fc9303Basiswert: &r%value%",
 						"&#fc9303Basevalue: &r%value%"}));
 		languageKeys.put("Cmd.Modifier.List.EndValue", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
