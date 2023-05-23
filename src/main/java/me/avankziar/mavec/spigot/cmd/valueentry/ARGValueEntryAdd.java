@@ -31,8 +31,8 @@ public class ARGValueEntryAdd extends ArgumentModule
 	{
 		String valuelable = args[2];
 		String othername = args[3];
-		String type = args[4];
-		String dimension = args[5];
+		String dimension = args[4];
+		String type = args[5];
 		String value = args[6];
 		String dur = args[7];
 		String internReason = args[8];

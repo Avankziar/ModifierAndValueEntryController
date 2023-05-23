@@ -232,9 +232,9 @@ public class YamlManager
 				"&eA intermediate command.");
 		perm = "mavec.cmd.valueentry";		
 		argumentInput(path+"_valueentry_add", "add", perm,
-				"/mavec valueentry add <valueentry> <player> <global/server:servername/world:servername:worldname> <value> <0/dd-HH:mm> <internreason> <reason...>", "/mavec valueentry add ", false,
-				"&c/mavec valueentry add <Valueentry> <Spieler> <global/server:servername/world:servername:weltname> <Wert> <0/dd-HH:mm> <interner Grung> <Grund...> &f| Fügt dem angegeben Spieler eine ValueEntry hinzu.",
-				"&c/mavec valueentry add <valueentry> <player> <global/server:servername/world:servername:worldname> <value> <0/dd-HH:mm> <internreason> <reason...> &f| Adds a valueentry to the specified player.",
+				"/mavec valueentry add <valueentry> <player> <global/server:servername/world:servername:worldname> <type> <value> <0/dd-HH:mm> <internreason> <reason...>", "/mavec valueentry add ", false,
+				"&c/mavec valueentry add <Valueentry> <Spieler> <global/server:servername/world:servername:weltname> <Type> <Wert> <0/dd-HH:mm> <interner Grung> <Grund...> &f| Fügt dem angegeben Spieler eine ValueEntry hinzu.",
+				"&c/mavec valueentry add <valueentry> <player> <global/server:servername/world:servername:worldname> <type> <value> <0/dd-HH:mm> <internreason> <reason...> &f| Adds a valueentry to the specified player.",
 				"&bBefehlsrecht für &f/mavec valueentry add",
 				"&bCommandright for &f/mavec valueentry add",
 				"&eFügt dem angegeben Spieler eine ValueEntry hinzu.",
@@ -530,8 +530,8 @@ public class YamlManager
 						"&bValueentry Name: &f%ve%~!~&9Number of permanent valueentry of all players: &f%permcount%~!~&dNumber of temporary valueentry of all players: &f%tempcount%~!~&7Explanation:~!~&f%explanation%"}));
 		languageKeys.put("Cmd.ValueEntry.Registered.Add", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
-						"&a☑~click@SUGGEST_COMMAND@%cmd%+%ve%+<Spieler>+<BOOLEAN/NUMBER/TEXT>+<global/server:servername/world:servername:worldname>+<Wert>+<0/dd-HH:mm>+<Intern+Grund>+<Grund...>~hover@SHOW_TEXT@&eKlicke+hier+zum+&ahinzufügen+&eeiner+Valueentry+für+einen+Spieler!",
-						"&a☑~click@SUGGEST_COMMAND@%cmd%+%ve%+<player>+<BOOLEAN/NUMBER/TEXT>+<global/server:servername/world:servername:worldname>+<value>+<0/dd-HH:mm>+<intern+reason>+<reason...>~hover@SHOW_TEXT@&eClick+here+to+&aadd+&ea+valueentry+for+a+player!"}));
+						"&a☑~click@SUGGEST_COMMAND@%cmd%+%ve%+<Spieler>+<global/server:servername/world:servername:worldname>+<BOOLEAN/NUMBER/TEXT>+<Wert>+<0/dd-HH:mm>+<Intern+Grund>+<Grund...>~hover@SHOW_TEXT@&eKlicke+hier+zum+&ahinzufügen+&eeiner+Valueentry+für+einen+Spieler!",
+						"&a☑~click@SUGGEST_COMMAND@%cmd%+%ve%+<player>+<global/server:servername/world:servername:worldname>+<BOOLEAN/NUMBER/TEXT>+<value>+<0/dd-HH:mm>+<intern+reason>+<reason...>~hover@SHOW_TEXT@&eClick+here+to+&aadd+&ea+valueentry+for+a+player!"}));
 		languageKeys.put("Cmd.ValueEntry.Registered.Remove", 
 				new Language(new ISO639_2B[] {ISO639_2B.GER, ISO639_2B.ENG}, new Object[] {
 						"&c〼~click@SUGGEST_COMMAND@%cmd%+%ve%+<Spieler>+<Intern+Grund>~hover@SHOW_TEXT@&eKlicke+hier+zum+&centfernen+&eeiner+Valueentry+für+einen+Spieler!",
