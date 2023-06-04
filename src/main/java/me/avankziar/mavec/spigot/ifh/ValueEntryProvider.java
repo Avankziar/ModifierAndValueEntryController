@@ -332,7 +332,7 @@ public class ValueEntryProvider implements main.java.me.avankziar.ifh.general.va
 			String server, String world,
 			Long duration)
 	{
-		if(hasValueEntry(uuid, valuelableName, type, null, server, world))
+		if(hasValueEntry(uuid, valuelableName, type, internReason, server, world))
 		{
 			return false;
 		}
@@ -349,7 +349,7 @@ public class ValueEntryProvider implements main.java.me.avankziar.ifh.general.va
 			String internReason, @Nullable String displayReason,
 			@Nullable String server, @Nullable String world,
 			Long duration)
-	{ //mavec valueentry add modifierandvalueentrycontroller-otherplayer Avankziar NUMBER global 55 05-00:00 to_do &dTadaa
+	{ //mavec valueentry add modifierandvalueentrycontroller-otherplayer Avankziar global BOOLEAN false 0 kill-x &cHat x getötet.
 		if(!hasValueEntry(uuid, valuelableName, type, internReason, server, world))
 		{
 			return false;

@@ -35,16 +35,25 @@ public class BackgroundTask
 				{
 					long now = System.currentTimeMillis();
 					UUID uuid = player.getUniqueId();
-					int c = plugin.getMysqlHandler().getCount(MysqlHandler.Type.MODIFIER,
+					int m = plugin.getMysqlHandler().getCount(MysqlHandler.Type.MODIFIER,
 							"`player_uuid` = ? AND `duration` > ? AND duration < ?",
 							uuid.toString(), 0, now);
-					if(c > 0)
+					if(m > 0)
 					{
 						plugin.getMysqlHandler().deleteData(MysqlHandler.Type.MODIFIER,
 								"`player_uuid` = ? AND `duration` > ? AND duration < ?",
 								uuid.toString(), 0, now);
 						plugin.getModifier().update(uuid);
-					}					
+					}
+					int v = plugin.getMysqlHandler().getCount(MysqlHandler.Type.VALUEENTRY,
+							"`player_uuid` = ? AND `duration` > ? AND duration < ?",
+							uuid.toString(), 0, now);
+					if(v > 0)
+					{
+						plugin.getMysqlHandler().deleteData(MysqlHandler.Type.VALUEENTRY,
+								"`player_uuid` = ? AND `duration` > ? AND duration < ?",
+								uuid.toString(), 0, now);
+					}
 				}
 			}
 		}.runTaskTimerAsynchronously(plugin, 20L, 20L*mulp);

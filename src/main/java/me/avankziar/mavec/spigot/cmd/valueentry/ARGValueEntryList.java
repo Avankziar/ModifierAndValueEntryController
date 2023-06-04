@@ -150,6 +150,7 @@ public class ARGValueEntryList extends ArgumentModule
 				.replace("%player%", othername)
 				.replace("%page%", String.valueOf(page))));
 		bc.add(bc1);
+		int j = 0;
 		for(Entry<ValueLable, String[]> cme : map.entrySet())
 		{
 			ValueLable vl = cme.getKey();
@@ -186,9 +187,10 @@ public class ARGValueEntryList extends ArgumentModule
 					sb.append("&r >> " + TimeHandler.getRepeatingTime(dur, "dd-HH:mm"));
 				}
 				vlist.add(sb.toString());
+				j++;
 			}
 			bc3.add(ChatApi.hoverEvent(plugin.getYamlHandler().getLang().getString("Cmd.ValueEntry.List.ValueEntryDescriptionTwo")
-					.replace("%value%", String.valueOf(cme.getValue().length)),
+					.replace("%value%", String.valueOf(j)),
 					HoverEvent.Action.SHOW_TEXT, String.join("~!~", vlist)));
 			bc.add(bc3);
 		}

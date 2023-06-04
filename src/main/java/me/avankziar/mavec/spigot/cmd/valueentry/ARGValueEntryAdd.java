@@ -111,6 +111,7 @@ public class ARGValueEntryAdd extends ArgumentModule
 			reason = "/";
 		}
 		boolean boo = plugin.getValueEntry().modifyValueEntry(uuid, valuelable, value, vt, internReason, reason, server, world, duration);
+		sender.sendMessage("boo == "+boo);//TODO
 		if(!boo)
 		{
 			plugin.getValueEntry().addValueEntry(uuid, valuelable, value, vt, internReason, reason, server, world, duration);
