@@ -176,7 +176,7 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 				 */
 				String[] s = split.split(":");
 				String key = s[0];
-				if(s.length != 2 && s.length == 4)
+				if(s.length != 2 && s.length != 4)
 				{
 					continue;
 				}
@@ -234,7 +234,7 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 				if(a.startsWith("var1=") || b.startsWith("var1=")
 						|| a.startsWith("var2=") || b.startsWith("var2="))
 				{
-					a = a.substring(5);
+					MAVEC.log.info("MAVEC a : "+a); //REMOVEME
 					Player other = Bukkit.getPlayer(uuid);
 					Player other2 = Bukkit.getPlayer(uuidTwo);
 					if(other != null && other.isOnline())
@@ -355,10 +355,13 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 	@SuppressWarnings("deprecation")
 	private String[] getVariable(Player other, String var)
 	{
+		MAVEC.log.info("MAVEC var : "+var); //REMOVEME
 		if(other == null || var.isEmpty())
 		{
 			return new String[] {var};
 		}
+		var = var.substring(5);
+		MAVEC.log.info("MAVEC var.subs : "+var); //REMOVEME
 		String[] ar = null;
 		switch(var)
 		{
@@ -379,16 +382,26 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 				{
 					ar = new String[] {String.valueOf(other.hasPermission(v))}; break;
 				}				
-			} else if(var.startsWith("mod="))
+			} else if(var.startsWith("math="))
 			{
-				String[] v = var.substring(3).split("="); //mod=<Zahl>=modifier
+				String[] v = var.split("=");
 				if(v.length != 2)
 				{
 					ar = new String[] {String.valueOf(var)}; break;
 				} else
 				{
+					ar = new String[] {String.valueOf(new MathFormulaParser().parse(v[1]))}; break;
+				}
+			} else if(var.startsWith("mod="))
+			{
+				String[] v = var.split("="); //mod=<Zahl>=modifier
+				if(v.length != 3)
+				{
+					ar = new String[] {String.valueOf(var)}; break;
+				} else
+				{
 					double r = MAVEC.getPlugin().getModifier().getResult(
-							other.getUniqueId(), Double.parseDouble(v[0]), v[1], MAVEC.getPlugin().getServername(), other.getWorld().getName());
+							other.getUniqueId(), Double.parseDouble(v[1]), v[2], MAVEC.getPlugin().getServername(), other.getWorld().getName());
 					ar = new String[] {String.valueOf(r)}; break;			
 				}
 			} else
@@ -455,6 +468,8 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 			ar = new String[] {String.valueOf(other.getLevel())}; break;
 		case "MaxHealth":
 			ar = new String[] {String.valueOf(other.getMaxHealth())}; break;
+		case "MoneyIFH":
+		case "MoneyVault": //TODO //FIXME
 		case "RemainingAir":
 			ar = new String[] {String.valueOf(other.getRemainingAir())}; break;
 		case "SaturatedRegenRate":

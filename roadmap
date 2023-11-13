@@ -1,2 +1,9 @@
+Build 1-2-0
+*- ConditionQueryParser Neue Variabel:
+  - MoneyIFH (Gemeint ist immer nur der MAIN-Account)
+  - MoneyVault (Gemeint ist immer nur das normale Konto ohne Bank)
+
+Build 1-1-1
+
 Build 1-1-0
 - Spigot 1.20.1 support
