@@ -100,6 +100,7 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 			boo = !a.toLowerCase().contains(b.toLowerCase());
 			break;
 		}
+		MAVEC.log.info("MAVEC pBaseCQ : "+conditionQuery+" : "+String.valueOf(boo)); //TODO
 		return boo;
 	}
 	
@@ -234,7 +235,7 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 				if(a.startsWith("var1=") || b.startsWith("var1=")
 						|| a.startsWith("var2=") || b.startsWith("var2="))
 				{
-					MAVEC.log.info("MAVEC a : "+a); //REMOVEME
+					MAVEC.log.info("MAVEC a : "+a+" : "+va+" : b : "+b); //REMOVEME
 					Player other = Bukkit.getPlayer(uuid);
 					Player other2 = Bukkit.getPlayer(uuidTwo);
 					if(other != null && other.isOnline())
@@ -265,6 +266,7 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 							boo = check;
 						} else if(a.startsWith("var1=") || a.startsWith("var2="))
 						{
+							MAVEC.log.info("MAVEC a : "+a); //REMOVEME
 							String[] ara = getVariable(a.startsWith("var1=") ? other : other2, a);
 							for(String aa : ara)
 							{
@@ -277,6 +279,7 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 							boo = check;
 						} else if(b.startsWith("var1=") || b.startsWith("var2="))
 						{
+							MAVEC.log.info("MAVEC b : "+a); //REMOVEME
 							String[] arb = getVariable(b.startsWith("var1=") ? other : other2, b);
 							for(String bb : arb)
 							{
@@ -361,7 +364,6 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 			return new String[] {var};
 		}
 		var = var.substring(5);
-		MAVEC.log.info("MAVEC var.subs : "+var); //REMOVEME
 		String[] ar = null;
 		switch(var)
 		{
@@ -370,11 +372,13 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 			if(var.startsWith("%") && var.endsWith("%") &&
 					Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
 			{
+				MAVEC.log.info("MAVEC %% : "+var); //REMOVEME
 				String s = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(other, var);
 				ar = new String[] {s != null ? s : var};
 			} else if(var.startsWith("perm="))
 			{
 				String v = var.substring(5);
+				MAVEC.log.info("MAVEC v.subs perm : "+v+" | "+String.valueOf(other.hasPermission(v))); //REMOVEME
 				if(v.isBlank() || v.isEmpty())
 				{
 					ar = new String[] {var}; break;
@@ -385,6 +389,7 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 			} else if(var.startsWith("math="))
 			{
 				String[] v = var.split("=");
+				MAVEC.log.info("MAVEC var : "+var); //REMOVEME
 				if(v.length != 2)
 				{
 					ar = new String[] {String.valueOf(var)}; break;
@@ -395,6 +400,7 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 			} else if(var.startsWith("mod="))
 			{
 				String[] v = var.split("="); //mod=<Zahl>=modifier
+				MAVEC.log.info("MAVEC var : "+var); //REMOVEME
 				if(v.length != 3)
 				{
 					ar = new String[] {String.valueOf(var)}; break;
@@ -406,6 +412,7 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 				}
 			} else
 			{
+				MAVEC.log.info("MAVEC valueentry : "+var); //REMOVEME
 				Boolean arrb = MAVEC.getPlugin().getValueEntry().getBooleanValueEntry(other.getUniqueId(), var, 
 						MAVEC.getPlugin().getServername(), other.getWorld().getName());
 				if(arrb != null)

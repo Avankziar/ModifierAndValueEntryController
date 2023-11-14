@@ -4,6 +4,7 @@ Build 1-2-0
   - MoneyVault (Gemeint ist immer nur das normale Konto ohne Bank)
 
 Build 1-1-1
+- ConditionQueryParser Logik fix
 
 Build 1-1-0
 - Spigot 1.20.1 support
