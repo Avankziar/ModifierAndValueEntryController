@@ -301,7 +301,6 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 		String output = null;
 		for(String condition : conditionQueryList)
 		{
-			MAVEC.log.info("condition: "+condition+" | "+condition.split(":").length);
 			String[] sp = condition.split(":");
 			if(sp.length == 2)
 			{
@@ -343,16 +342,6 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 				//getProxy().getPluginManager().callEvent(new ConditionQueryOutputEvent(uuid, op)); //TODO Bungeeversion
 			}
 			return null;
-		}
-		if(output == null)
-		{
-			MAVEC.log.info("Output: null");
-		} else
-		{
-			for(String s : outputOptions.get(output))
-			{
-				MAVEC.log.info("Output: "+s);
-			}
 		}
 		return output == null ? null : outputOptions.get(output);
 	}
