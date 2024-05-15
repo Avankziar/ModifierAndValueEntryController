@@ -16,9 +16,18 @@ import main.java.me.avankziar.mavec.spigot.assistance.Experience;
 import main.java.me.avankziar.mavec.spigot.assistance.MatchApi;
 
 public class ConditionQueryParserProvider implements ConditionQueryParser
-{	
+{
+	/*private static void log(String s)
+	{
+		if(true)
+		{
+			MAVEC.log.info(s);
+		}
+	}*/
+	
 	public boolean parseBaseConditionQuery(String conditionQuery)
 	{
+		//log("parseBaseConditionQuery: "+conditionQuery); INFO
 		String[] s = conditionQuery.split(":");
 		String a = s[0];
 		String b = s[2];
@@ -100,17 +109,20 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 			boo = !a.toLowerCase().contains(b.toLowerCase());
 			break;
 		}
+		//log("parseBaseConditionQuery: "+boo); INFO
 		return boo;
 	}
 	
 	public Boolean parseSimpleConditionQuery(String conditionQuery, LinkedHashMap<String, Boolean> variables)
 	{
+		//log("parseSimpleConditionQuery: "+conditionQuery); INFO
 		String cq = conditionQuery.strip().replace(" ", "");
 		for(Entry<String, Boolean> e : variables.entrySet())
 		{
 			cq = cq.replace(e.getKey(), String.valueOf(e.getValue() ? 1 : 0));
 		}
 		cq = cq.replace("!0", "1").replace("!1", "0").replace("&&", "*").replace("||", "+");
+		//log("parseSimpleConditionQuery: "+cq); INFO
 		double d = 0.0;
 		try
 		{
@@ -119,6 +131,7 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 		{
 			return null;
 		}
+		//log("parseSimpleConditionQuery: "+(d >= 1.0 ? true : false)); INFO
 		return d >= 1.0 ? true : false;
 	}
 	
@@ -133,12 +146,24 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 		String pluginnameForPossibleEvent = "";
 		for(String split : conditionQuery_Vars_Output_List)
 		{
-			if(split.startsWith("if") || split.startsWith("elseif") || split.startsWith("else"))
+			//log("parseBranchedConditionQuery: "+split); INFO
+			if(split.startsWith("if") || split.startsWith("elseif"))
 			{
 				//if:(a && b || c):Do.A
 				String[] s = split.split(":");
 				if(s.length != 3)
 				{
+					//log("parseBranchedConditionQuery: if/elseif s.length != 3"); INFO
+					continue;
+				}
+				conditionQueryList.add(split);
+			} else if(split.startsWith("else")) 
+			{
+				//if:(a && b || c):Do.A
+				String[] s = split.split(":");
+				if(s.length != 2)
+				{
+					//log("parseBranchedConditionQuery: else s.length != 2"); INFO
 					continue;
 				}
 				conditionQueryList.add(split);
@@ -148,6 +173,7 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 				String[] s = split.split(":");
 				if(s.length < 3)
 				{
+					//log("parseBranchedConditionQuery: output s.length < 3"); INFO
 					continue;
 				}
 				ArrayList<String> list = new ArrayList<>();
@@ -163,6 +189,7 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 				String[] s = split.split(":");
 				if(s.length != 2)
 				{
+					//log("parseBranchedConditionQuery: event s.length != 2"); INFO
 					continue;
 				}
 				asEvent = true;
@@ -178,6 +205,7 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 				String key = s[0];
 				if(s.length != 2 && s.length != 4)
 				{
+					//log("parseBranchedConditionQuery: ... s.length != 2 && s.length != 4"); INFO
 					continue;
 				}
 				variables.put(key, split);
@@ -311,18 +339,19 @@ public class ConditionQueryParserProvider implements ConditionQueryParser
 				}
 			} else if(sp.length == 3)
 			{
+				//log("parseBranchedConditionQuery: "+condition); INFO
 				String c = sp[1];
 				if(sp[0].equalsIgnoreCase("if") || sp[0].equalsIgnoreCase("elseif"))
 				{
 					Boolean boo = parseSimpleConditionQuery(c, vars);
 					if(boo == null)
 					{
-						MAVEC.log.info("for(String condition) boo == null");
+						//log("parseBranchedConditionQuery: boo == null"); INFO
 						continue;
 					}
 					if(!boo.booleanValue())
 					{
-						MAVEC.log.info("for(String condition) !boo.booleanValue()");
+						//log("parseBranchedConditionQuery: !boo.booleanValue()"); INFO
 						continue;
 					}
 					output = sp[2];
