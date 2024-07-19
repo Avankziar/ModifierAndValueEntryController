@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-import main.java.me.avankziar.ifh.general.modifier.ModificationType;
 import main.java.me.avankziar.mavec.spigot.database.MysqlHandable;
 import main.java.me.avankziar.mavec.spigot.database.MysqlHandler;
+import me.avankziar.ifh.general.modifier.ModificationType;
 
-public class Modification extends main.java.me.avankziar.ifh.general.modifier.objects.Modification implements MysqlHandable
+public class Modification extends me.avankziar.ifh.general.modifier.objects.Modification implements MysqlHandable
 {
 	public Modification(){}
 	

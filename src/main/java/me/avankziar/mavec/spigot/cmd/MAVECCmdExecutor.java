@@ -9,7 +9,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import main.java.me.avankziar.ifh.general.math.MatchPrimitiveDataTypes;
 import main.java.me.avankziar.mavec.general.ChatApi;
 import main.java.me.avankziar.mavec.spigot.MAVEC;
 import main.java.me.avankziar.mavec.spigot.cmdtree.ArgumentConstructor;
@@ -17,6 +16,7 @@ import main.java.me.avankziar.mavec.spigot.cmdtree.ArgumentModule;
 import main.java.me.avankziar.mavec.spigot.cmdtree.BaseConstructor;
 import main.java.me.avankziar.mavec.spigot.cmdtree.CommandConstructor;
 import main.java.me.avankziar.mavec.spigot.modifiervalueentry.ModifierValueEntry;
+import me.avankziar.ifh.general.math.MatchPrimitiveDataTypes;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;

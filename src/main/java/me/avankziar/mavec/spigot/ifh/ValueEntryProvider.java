@@ -5,14 +5,14 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import main.java.me.avankziar.ifh.general.valueentry.ValueType;
 import main.java.me.avankziar.mavec.spigot.MAVEC;
 import main.java.me.avankziar.mavec.spigot.database.MysqlHandler;
 import main.java.me.avankziar.mavec.spigot.database.MysqlHandler.Type;
 import main.java.me.avankziar.mavec.spigot.objects.ValueEntry;
 import main.java.me.avankziar.mavec.spigot.objects.ValueLable;
+import me.avankziar.ifh.general.valueentry.ValueType;
 
-public class ValueEntryProvider implements main.java.me.avankziar.ifh.general.valueentry.ValueEntry
+public class ValueEntryProvider implements me.avankziar.ifh.general.valueentry.ValueEntry
 {
 	private MAVEC plugin;
 	private static ArrayList<ValueLable> registeredVL = new ArrayList<>();
@@ -69,7 +69,7 @@ public class ValueEntryProvider implements main.java.me.avankziar.ifh.general.va
 		return true;
 	}
 	
-	public main.java.me.avankziar.ifh.general.valueentry.objects.ValueLable getRegisteredValueLable(String valueLableName)
+	public me.avankziar.ifh.general.valueentry.objects.ValueLable getRegisteredValueLable(String valueLableName)
 	{
 		for(ValueLable c : registeredVL)
 		{
@@ -81,9 +81,9 @@ public class ValueEntryProvider implements main.java.me.avankziar.ifh.general.va
 		return null;
 	}
 	
-	public ArrayList<main.java.me.avankziar.ifh.general.valueentry.objects.ValueLable> getRegisteredValueLable()
+	public ArrayList<me.avankziar.ifh.general.valueentry.objects.ValueLable> getRegisteredValueLable()
 	{
-		ArrayList<main.java.me.avankziar.ifh.general.valueentry.objects.ValueLable> list = new ArrayList<>();
+		ArrayList<me.avankziar.ifh.general.valueentry.objects.ValueLable> list = new ArrayList<>();
 		for(ValueLable c : registeredVL)
 		{
 			list.add(c.getValueLable());

@@ -7,13 +7,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
-import main.java.me.avankziar.ifh.general.valueentry.ValueType;
 import main.java.me.avankziar.mavec.general.ChatApi;
 import main.java.me.avankziar.mavec.spigot.MAVEC;
 import main.java.me.avankziar.mavec.spigot.assistance.MatchApi;
 import main.java.me.avankziar.mavec.spigot.assistance.TimeHandler;
 import main.java.me.avankziar.mavec.spigot.cmdtree.ArgumentConstructor;
 import main.java.me.avankziar.mavec.spigot.cmdtree.ArgumentModule;
+import me.avankziar.ifh.general.valueentry.ValueType;
 import net.md_5.bungee.api.chat.ClickEvent;
 
 public class ARGValueEntryAdd extends ArgumentModule

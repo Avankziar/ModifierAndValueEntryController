@@ -10,16 +10,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import main.java.me.avankziar.ifh.general.modifier.ModificationType;
-import main.java.me.avankziar.ifh.general.modifier.ModifierType;
 import main.java.me.avankziar.mavec.spigot.MAVEC;
 import main.java.me.avankziar.mavec.spigot.database.MysqlHandler;
 import main.java.me.avankziar.mavec.spigot.database.MysqlHandler.Type;
 import main.java.me.avankziar.mavec.spigot.objects.Modification;
 import main.java.me.avankziar.mavec.spigot.objects.Modifier;
 import main.java.me.avankziar.mavec.spigot.objects.ModifierBaseValue;
+import me.avankziar.ifh.general.modifier.ModificationType;
+import me.avankziar.ifh.general.modifier.ModifierType;
 
-public class ModifierProvider implements main.java.me.avankziar.ifh.general.modifier.Modifier
+public class ModifierProvider implements me.avankziar.ifh.general.modifier.Modifier
 {
 	private MAVEC plugin;
 	private static ArrayList<Modification> registeredMod = new ArrayList<>();
@@ -265,7 +265,7 @@ public class ModifierProvider implements main.java.me.avankziar.ifh.general.modi
 		return list;
 	}
 	
-	public main.java.me.avankziar.ifh.general.modifier.objects.Modification getRegisteredModification(String internName)
+	public me.avankziar.ifh.general.modifier.objects.Modification getRegisteredModification(String internName)
 	{
 		for(Modification mod : registeredMod)
 		{
@@ -277,9 +277,9 @@ public class ModifierProvider implements main.java.me.avankziar.ifh.general.modi
 		return null;
 	}
 	
-	public ArrayList<main.java.me.avankziar.ifh.general.modifier.objects.Modification> getRegisteredModification()
+	public ArrayList<me.avankziar.ifh.general.modifier.objects.Modification> getRegisteredModification()
 	{
-		ArrayList<main.java.me.avankziar.ifh.general.modifier.objects.Modification> list = new ArrayList<>();
+		ArrayList<me.avankziar.ifh.general.modifier.objects.Modification> list = new ArrayList<>();
 		for(Modification mod : registeredMod)
 		{
 			list.add(mod.getModification());
@@ -287,9 +287,9 @@ public class ModifierProvider implements main.java.me.avankziar.ifh.general.modi
 		return list;
 	}
 	
-	public ArrayList<main.java.me.avankziar.ifh.general.modifier.objects.Modification>  getRegisteredModification(ModificationType type)
+	public ArrayList<me.avankziar.ifh.general.modifier.objects.Modification>  getRegisteredModification(ModificationType type)
 	{
-		ArrayList<main.java.me.avankziar.ifh.general.modifier.objects.Modification> list = new ArrayList<>();
+		ArrayList<me.avankziar.ifh.general.modifier.objects.Modification> list = new ArrayList<>();
 		for(Modification mod : registeredMod)
 		{
 			if(mod.getType() == type)

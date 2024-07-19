@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Level;
 
-import main.java.me.avankziar.ifh.general.modifier.ModifierType;
 import main.java.me.avankziar.mavec.spigot.database.MysqlHandable;
 import main.java.me.avankziar.mavec.spigot.database.MysqlHandler;
+import me.avankziar.ifh.general.modifier.ModifierType;
 
-public class Modifier extends main.java.me.avankziar.ifh.general.modifier.objects.Modifier implements MysqlHandable
+public class Modifier extends me.avankziar.ifh.general.modifier.objects.Modifier implements MysqlHandable
 {
 	private int id;
 	

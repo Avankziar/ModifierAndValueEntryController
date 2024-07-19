@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import main.java.me.avankziar.mavec.spigot.database.MysqlHandable;
 import main.java.me.avankziar.mavec.spigot.database.MysqlHandler;
 
-public class ValueLable extends main.java.me.avankziar.ifh.general.valueentry.objects.ValueLable implements MysqlHandable
+public class ValueLable extends me.avankziar.ifh.general.valueentry.objects.ValueLable implements MysqlHandable
 {	
 	public ValueLable(){}
 	

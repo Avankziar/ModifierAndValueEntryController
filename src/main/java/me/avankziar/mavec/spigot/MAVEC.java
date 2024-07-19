@@ -21,8 +21,6 @@ import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.SimplePluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import main.java.me.avankziar.ifh.spigot.administration.Administration;
-import main.java.me.avankziar.ifh.spigot.metrics.Metrics;
 import main.java.me.avankziar.mavec.spigot.assistance.BackgroundTask;
 import main.java.me.avankziar.mavec.spigot.cmd.MAVECCmdExecutor;
 import main.java.me.avankziar.mavec.spigot.cmd.TabCompletion;
@@ -49,7 +47,9 @@ import main.java.me.avankziar.mavec.spigot.ifh.ConditionQueryParserProvider;
 import main.java.me.avankziar.mavec.spigot.ifh.ModifierProvider;
 import main.java.me.avankziar.mavec.spigot.ifh.ValueEntryProvider;
 import main.java.me.avankziar.mavec.spigot.listener.JoinQuitListener;
+import main.java.me.avankziar.mavec.spigot.metrics.Metrics;
 import main.java.me.avankziar.mavec.spigot.modifiervalueentry.Bypass;
+import me.avankziar.ifh.spigot.administration.Administration;
 
 public class MAVEC extends JavaPlugin
 {
@@ -356,7 +356,7 @@ public class MAVEC extends JavaPlugin
 	    }
 		modifierProvider = new ModifierProvider(plugin);
     	plugin.getServer().getServicesManager().register(
-        main.java.me.avankziar.ifh.general.modifier.Modifier.class,
+        me.avankziar.ifh.general.modifier.Modifier.class,
         modifierProvider,
         this,
         ServicePriority.Normal);
@@ -369,7 +369,7 @@ public class MAVEC extends JavaPlugin
 	    }
 		valueEntryProvider = new ValueEntryProvider();
     	plugin.getServer().getServicesManager().register(
-        main.java.me.avankziar.ifh.general.valueentry.ValueEntry.class,
+        me.avankziar.ifh.general.valueentry.ValueEntry.class,
         valueEntryProvider,
         this,
         ServicePriority.Normal);
@@ -410,7 +410,7 @@ public class MAVEC extends JavaPlugin
 	    }
 		conditonQueryParserProvider = new ConditionQueryParserProvider();
     	plugin.getServer().getServicesManager().register(
-        main.java.me.avankziar.ifh.general.conditionqueryparser.ConditionQueryParser.class,
+        me.avankziar.ifh.general.conditionqueryparser.ConditionQueryParser.class,
         conditonQueryParserProvider,
         this,
         ServicePriority.Normal);
@@ -429,7 +429,7 @@ public class MAVEC extends JavaPlugin
 	    {
 	    	return;
 	    }
-		RegisteredServiceProvider<main.java.me.avankziar.ifh.spigot.administration.Administration> rsp = 
+		RegisteredServiceProvider<me.avankziar.ifh.spigot.administration.Administration> rsp = 
                 getServer().getServicesManager().getRegistration(Administration.class);
 		if (rsp == null) 
 		{

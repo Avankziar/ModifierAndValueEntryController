@@ -8,12 +8,12 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import main.java.me.avankziar.ifh.general.conditionqueryparser.ConditionQueryParser;
-import main.java.me.avankziar.ifh.general.math.MathFormulaParser;
-import main.java.me.avankziar.ifh.spigot.event.misc.ConditionQueryOutputEvent;
 import main.java.me.avankziar.mavec.spigot.MAVEC;
 import main.java.me.avankziar.mavec.spigot.assistance.Experience;
 import main.java.me.avankziar.mavec.spigot.assistance.MatchApi;
+import me.avankziar.ifh.general.conditionqueryparser.ConditionQueryParser;
+import me.avankziar.ifh.general.math.MathFormulaParser;
+import me.avankziar.ifh.spigot.event.misc.ConditionQueryOutputEvent;
 
 public class ConditionQueryParserProvider implements ConditionQueryParser
 {

@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Level;
 
-import main.java.me.avankziar.ifh.general.valueentry.ValueType;
 import main.java.me.avankziar.mavec.spigot.database.MysqlHandable;
 import main.java.me.avankziar.mavec.spigot.database.MysqlHandler;
+import me.avankziar.ifh.general.valueentry.ValueType;
 
-public class ValueEntry extends main.java.me.avankziar.ifh.general.valueentry.objects.ValueEntry implements MysqlHandable
+public class ValueEntry extends me.avankziar.ifh.general.valueentry.objects.ValueEntry implements MysqlHandable
 {
 	private int id;
 
