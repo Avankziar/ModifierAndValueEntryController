@@ -3,6 +3,10 @@ Future Build
   - MoneyIFH (Gemeint ist immer nur der MAIN-Account)
   - MoneyVault (Gemeint ist immer nur das normale Konto ohne Bank)
 
+1-4-0
+- Spigot 1.21.4 support
+- Api muss mindestens 1.21.3 oder höher sein.
+
 Build 1-3-0
 - Java 21 Dependency
 - Spigot 1.21 Support
